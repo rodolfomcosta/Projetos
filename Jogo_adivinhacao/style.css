@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    font-size: 62.5%; /*reconfigura o tamanho da font e permite a substituição do px por rem*/
+}
+
+body {
+    background: linear-gradient(287deg, #FFCACA, #FFECEF);
+    height: 100vh;
+    font-size: 1.6rem;
+    display: grid;
+    place-items: center;
+}
+
+body, input, button {
+    font-family: 'DM Sans', sans-serif;
+}
+
+button {
+    background-color: #FFCACA;
+    font-weight: bold;
+    border-radius: 0 .4rem 0.4rem 0;
+    cursor: pointer;
+    transition: background .3s;
+}
+
+button:hover{
+    background-color: #e6b9b9;
+}
+
+.hide {
+    display: none;
+}
+
+main {
+    background-color: #fff;
+    box-shadow: 0 .2rem .4rem rgba(0, 0, 0, 0.2);
+    border-radius: .5rem;
+    padding: 4.8rem 6.4rem 6.4rem;
+    width: min(48.2rem, 90%);
+    margin: auto;
+    margin-top: 12rem;
+    text-align: center;
+}
+
+/*Screen1*/
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.4rem;
+    margin-bottom: 1.6rem;
+}
+
+h1, p {
+    color: #251B37;
+}
+
+p {
+    opacity: .8;
+}
+
+form {
+    margin-top: 4.8rem;
+    display: flex;
+    justify-content: center;
+}
+
+input, button {
+    border: none;
+    padding: 1.6rem;
+}
+
+input {
+    background-color: #DCE2E9;
+    width: 6rem;
+    border-radius: 0.4rem 0 0 .4rem;
+}
+
+/*screen2*/
+h2 {
+    font-size: 2.4rem;
+    margin-bottom: 3.3rem;
+}
+
+.screen2 button {
+    border-radius: .4rem;
+}
