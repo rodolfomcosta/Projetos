@@ -6,8 +6,9 @@
 */
 // ES6 modules
 // default export
+import Controls from "./controls.js"
 import resetControls from "./controls.js"
-import {Timer} from "./timer.js"
+import Timer from "./timer.js"
 
 // variaveis
 const buttonPlay = document.querySelector('.play')
@@ -18,44 +19,56 @@ const buttonSoundOn = document.querySelector('.soundOn')
 const buttonSoundOff = document.querySelector('.soundOff')
 const minutesDisplay = document.querySelector('.minutes')
 const secondsDisplay = document.querySelector('.seconds')
-let minutes = Number(minutesDisplay.textContent)
-let timerTimeOut
+
+
 
 // injeção de dependência
-const timer = Timer()
+const controls = Controls({
+    buttonPlay,
+    buttonPause,
+    buttonSet,
+    buttonStop,
+    buttonSoundOn,
+    buttonSoundOff
+})
+
+const timer = Timer({
+    minutesDisplay,
+    secondsDisplay,
+    resetControls: controls.reset,
+})
 
 // events
 buttonPlay.addEventListener('click', () => {
-    buttonPlay.classList.add('hide')
-    buttonPause.classList.remove('hide')
-    buttonSet.classList.add('hide')
-    buttonStop.classList.remove('hide')
-    countDown() 
+    controls.play()
+    timer.countdown() 
 })
 
 buttonPause.addEventListener('click', () => {
-    buttonPlay.classList.remove('hide')
-    buttonPause.classList.add('hide')
-    clearTimeout(timerTimeOut)
+    controls.pause()
+    timer.hold()
 })
 
 buttonStop.addEventListener('click', () => {
-    resetControls()
-    resetTimer()
+    controls.reset()
+    timer.reset()
 })
 
 buttonSet.addEventListener('click', () => {
-    minutes = prompt('Quantos minutos?') || 0
-    updateTimerDisplay(minutes)
+    let newMinutes = controls.getMinutes()
+    if (!newMinutes){
+        timer.reset()
+        return
+    }
+    timer.updateMinutes(newMinutes)
+    timer.updateDisplay(newMinutes)
 })
 
 buttonSoundOn.addEventListener('click', () => {
-    buttonSoundOn.classList.add('hide')
-    buttonSoundOff.classList.remove('hide')
+    controls.soundOn()
 })
 
 buttonSoundOff.addEventListener('click', () => {
-    buttonSoundOn.classList.remove('hide')
-    buttonSoundOff.classList.add('hide')
+    controls.soundOff()
 })
 

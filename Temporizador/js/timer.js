@@ -1,14 +1,16 @@
 // functions
 
 // padrão factory - função que retorna um objeto
-export function Timer({ //desestruturação da função
+export default function Timer({ //desestruturação da função
     minutesDisplay,
     secondsDisplay,
-    timerTimeOut,
-
+    reset,
+    minutes,
 }){
+    let timerTimeOut
+    let minutes = Number(minutesDisplay.textContent)
 
-    function updateTimerDisplay(minutes=0, seconds=0){
+    function updateDisplay(minutes=0, seconds=0){
         minutesDisplay.textContent = String(minutes).padStart(2, "0")
         secondsDisplay.textContent = String(seconds).padStart(2, "0")
     }
@@ -18,10 +20,10 @@ export function Timer({ //desestruturação da função
             let seconds = Number(secondsDisplay.textContent)
             let minutes = Number(minutesDisplay.textContent)
 
-            updateTimerDisplay(minutes, 0)
+            updateDisplay(minutes, 0)
 
             if (minutes <= 0){
-                resetControls()
+                reset()
                 return
             }
 
@@ -29,19 +31,31 @@ export function Timer({ //desestruturação da função
                 seconds = 10
                 --minutes
             }       
-            updateTimerDisplay(minutes, String(seconds - 1))
+            updateDisplay(minutes, String(seconds - 1))
             
-            countDown() // recursão - quando uma função chama ela mesma
+            countdown() // recursão - quando uma função chama ela mesma
         }, 1000)
     }
 
-    function resetTimer(){
-        updateTimerDisplay(minutes, 0)
+    function reset(){
+        updateDisplay(minutes, 0)
+        clearTimeout(timerTimeOut)
+    }
+
+    function updateMinutes(newMinutes){
+        minutes = newMinutes
+    }
+
+    function hold(){
         clearTimeout(timerTimeOut)
     }
 
     return {
-        countdown // shorthand - propriedade e valor de msm nome
+        countdown, // shorthand - propriedade e valor de msm nome
+        reset,
+        updateDisplay,
+        updateMinutes,
+        hold
     }
 
     /*
