@@ -7,20 +7,18 @@
 // ES6 modules
 // default export
 import Controls from "./controls.js"
-import resetControls from "./controls.js"
 import Timer from "./timer.js"
-
-// variaveis
-const buttonPlay = document.querySelector('.play')
-const buttonPause = document.querySelector('.pause')
-const buttonStop = document.querySelector('.stop')
-const buttonSet = document.querySelector('.set')
-const buttonSoundOn = document.querySelector('.soundOn')
-const buttonSoundOff = document.querySelector('.soundOff')
-const minutesDisplay = document.querySelector('.minutes')
-const secondsDisplay = document.querySelector('.seconds')
-
-
+import Sound from "./sounds.js"
+import { // pode desestruturar diretamente no import, ou numa variável
+    buttonPlay,
+    buttonPause,
+    buttonSet,
+    buttonStop,
+    buttonSoundOn,
+    buttonSoundOff,
+    minutesDisplay,
+    secondsDisplay
+} from "./elements.js"
 
 // injeção de dependência
 const controls = Controls({
@@ -32,6 +30,8 @@ const controls = Controls({
     buttonSoundOff
 })
 
+const sound = Sound()
+
 const timer = Timer({
     minutesDisplay,
     secondsDisplay,
@@ -41,7 +41,8 @@ const timer = Timer({
 // events
 buttonPlay.addEventListener('click', () => {
     controls.play()
-    timer.countdown() 
+    timer.countdown()
+    sound.pressButton()
 })
 
 buttonPause.addEventListener('click', () => {
